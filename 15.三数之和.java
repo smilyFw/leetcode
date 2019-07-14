@@ -18,7 +18,7 @@ class Solution {
 
         int left = 0;
         int right = 0;
-        for(int i = 0; i < nums.length-2; i++){
+        for(int i = 0; i < nums.length - 2; i++){
             left = i+1;
             right = nums.length-1;
 
@@ -42,7 +42,7 @@ class Solution {
                 }
             }
 
-            while (i < nums.length - 2 && nums[i] == nums[i + 1]){
+            while (i < nums.length - 3 && nums[i] == nums[i + 1]){
                 i++;
             }
         }
