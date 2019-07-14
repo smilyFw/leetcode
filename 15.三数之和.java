@@ -1,6 +1,6 @@
-import java.util.Collections;
+import java.util.Arrays;
+import java.util.LinkedList;
 import java.util.List;
-
 /*
  * @lc app=leetcode.cn id=15 lang=java
  *
@@ -8,14 +8,45 @@ import java.util.List;
  */
 class Solution {
     public List<List<Integer>> threeSum(int[] nums) {
-        List<Integer> list = Arrays.asLis(nums);
-        Collections.sort(list);
+        List<List<Integer>> resultList = new LinkedList<>();
 
-        Map<Integer, >
-
-        for(int i = 0; i < list.size(); i++){
-
+        if(nums == null || nums.length == 0){
+            return resultList;
         }
+
+        Arrays.sort(nums);
+
+        int left = 0;
+        int right = 0;
+        for(int i = 0; i < nums.length-2; i++){
+            left = i+1;
+            right = nums.length-1;
+
+            while(left < right){
+
+                if(nums[i] + nums[left] + nums[right] > 0){
+                    right --;
+                }else if(nums[i]+nums[left] +nums[right] < 0 ){
+                    left ++;
+                }else{
+                    resultList.add(Arrays.asList(nums[i], nums[left], nums[right]));
+                    while(left < right && nums[left] == nums[left+1]){
+                        left++;
+                    }
+
+                    while(left < right && nums[right] == nums[right-1]){
+                        right--;
+                    }
+                    left++;
+                    right--;
+                }
+            }
+
+            while (i < nums.length - 2 && nums[i] == nums[i + 1]){
+                i++;
+            }
+        }
+        return resultList;
     }
 }
 
