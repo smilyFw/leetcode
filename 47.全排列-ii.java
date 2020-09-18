@@ -13,25 +13,34 @@
 
 // @lc code=start
 class Solution {
-    public  List<List<Integer>> permute(int[] nums) {
+    public  List<List<Integer>> permuteUnique(int[] nums) {
+        Arrays.sort(nums);
         List<List<Integer>> result = new ArrayList<>();
         List<Integer> trace = new ArrayList<>();
-        helper(result, nums, trace, nums.length);
+        boolean[] reach = new boolean[nums.length];
+        help(result, trace, reach, nums);
         return result;
     }
 
-    private void helper(List<List<Integer>> result,int[] nums, List<Integer> trace, int len){
-        if(trace.size() == len){
+    private  void help(List<List<Integer>> result, List<Integer> trace, boolean[] reach, int[] nums){
+        if(trace.size() == nums.length){
             result.add(new ArrayList<>(trace));
             return;
         }
+
         for (int i = 0; i < nums.length; i++){
-            if(trace.contains(nums[i])){
+            if(reach[i]){
+                continue;
+            }
+
+            if(i > 0 && reach[i-1] && nums[i] == nums[i-1]){
                 continue;
             }
             trace.add(nums[i]);
-            helper(result, nums, trace, len);
+            reach[i] = true;
+            help(result, trace, reach, nums);
             trace.remove(trace.size()-1);
+            reach[i] = false;
         }
     }
 }
